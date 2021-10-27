@@ -27,4 +27,4 @@
 - - Caution : google.com will not work.
 
 ### References
-AWS Blog - [How to add DNS filtering to your NAT instance with Squid](https://aws.amazon.com/ko/blogs/security/how-to-add-dns-filtering-to-your-nat-instance-with-squid/)
+AWS Blog (Originally implemented with AWS CloudFormation) - [How to add DNS filtering to your NAT instance with Squid](https://aws.amazon.com/ko/blogs/security/how-to-add-dns-filtering-to-your-nat-instance-with-squid/)
