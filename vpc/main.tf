@@ -58,8 +58,6 @@ resource "aws_subnet" "private" {
 }
 
 resource "aws_route_table" "public" {
-  count = length(var.private_subnets)
-
   vpc_id = aws_vpc.this.id
 
   route {
@@ -71,8 +69,6 @@ resource "aws_route_table" "public" {
 }
 
 resource "aws_route_table" "private" {
-  count = length(var.private_subnets)
-
   vpc_id = aws_vpc.this.id
   route {
     cidr_block  = "0.0.0.0/0"
@@ -85,20 +81,20 @@ resource "aws_route_table_association" "public_route_association" {
   count = length(var.public_subnets)
 
   subnet_id      = aws_subnet.public.*.id[count.index]
-  route_table_id = aws_route_table.public.*.id[count.index]
+  route_table_id = aws_route_table.public.id
 }
 
 resource "aws_route_table_association" "private_route_association" {
   count = length(var.private_subnets)
 
   subnet_id      = aws_subnet.private.*.id[count.index]
-  route_table_id = aws_route_table.private.*.id[count.index]
+  route_table_id = aws_route_table.private.id
 }
 
 resource "aws_vpc_endpoint_route_table_association" "s3_route_association" {
   count = length(var.private_subnets)
 
-  route_table_id  = aws_route_table.private.*.id[count.index]
+  route_table_id  = aws_route_table.private.id
   vpc_endpoint_id = aws_vpc_endpoint.s3_endpoint.id
 }
 
